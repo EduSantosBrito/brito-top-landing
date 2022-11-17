@@ -1,0 +1,205 @@
+---
+import Menubar from "./Menubar.astro";
+import HeadingSlider from "./HeadingSlider.astro";
+import Logo from "../images/brito-logo.webp";
+import Ball from "../icons/ball.svg";
+---
+
+<header>
+  <nav aria-label="Navigation bar">
+    <a href="/" aria-label="Go to homepage">
+      <img
+        aria-hidden="true"
+        src={Logo.src}
+        alt="Purple letter B with the text brito.top on right"
+        aria-roledescription="logo"
+        width="107"
+        height="20"
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+    <Menubar />
+  </nav>
+  <section id="hero-header" aria-label="Hero header">
+    <HeadingSlider />
+    <h2>
+      We build creative, scalable and performant projects. We're specialized in
+      web development, mobile apps and UI/UX design.
+    </h2>
+    <a href="#who-we-are" aria-labelledby="skip-to-main-content">
+      <span aria-hidden="true" class="visually-hidden" id="skip-to-main-content"
+        >Skip to main content</span
+      >
+    </a>
+  </section>
+  <section id="hero-visual-elements" aria-hidden="true">
+    {
+      Array.from(new Array(5)).map(() => (
+        <img
+          src={Ball}
+          alt="Purple ball looking like a black hole"
+          aria-hidden="true"
+          width={400}
+          height={400}
+          loading="lazy"
+          decoding="async"
+        />
+      ))
+    }
+  </section>
+</header>
+
+<style lang="scss">
+  @import "../variables";
+
+  @keyframes slideTopWithOpacity {
+    from {
+      opacity: 0;
+      bottom: 0;
+    }
+
+    to {
+      opacity: 1;
+      bottom: 10rem;
+    }
+  }
+
+  header {
+    position: relative;
+    background-image: url("../images/background.webp");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+
+    nav {
+      @media screen and (min-width: $breakpoint-tablet) {
+        width: 100%;
+        position: relative;
+        margin-top: 3.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          border-radius: 0.1rem;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+          left: clamp(9rem, 10vw, 10%);
+          cursor: pointer;
+        }
+      }
+    }
+
+    #hero-header {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4rem;
+      height: 100%;
+      margin-top: 25rem;
+      margin-left: clamp(18rem, 10vw, 20%);
+      h2 {
+        font-family: "Sarabun";
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: $white-1;
+        max-width: 60rem;
+      }
+      a {
+        position: absolute;
+        width: 2rem;
+        left: 2rem;
+        bottom: -10rem;
+        height: 0.4rem;
+        background-color: $purple-1;
+        transform: rotate(90deg);
+        transition: background-color 200ms ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $purple-2;
+          &::after,
+          &::before {
+            background-color: $purple-2;
+          }
+        }
+        &::after,
+        &::before {
+          content: "";
+          position: absolute;
+          width: 1.7rem;
+          height: 0.4rem;
+          background-color: $purple-1;
+          border-radius: 0.4rem;
+          transition: background-color 200ms ease-in-out;
+        }
+        &::before {
+          transform: rotate(-45deg);
+          right: -0.4rem;
+          top: 0.5rem;
+        }
+        &::after {
+          transform: rotate(45deg);
+          right: -0.4rem;
+          bottom: 0.5rem;
+        }
+      }
+    }
+    #hero-visual-elements {
+      display: none;
+      @media screen and (min-width: $breakpoint-small-desktop) {
+        display: initial;
+        transform: rotate(60deg);
+        img {
+          position: absolute;
+          opacity: 0;
+          animation: slideTopWithOpacity 500ms ease-in-out forwards;
+        }
+        img:nth-child(n + 1) {
+          right: 20%;
+          bottom: 0;
+          margin-bottom: -10rem;
+          animation-delay: 500ms;
+          z-index: 50;
+        }
+        img:nth-child(n + 2) {
+          right: 5%;
+          bottom: 0;
+          margin-bottom: 5rem;
+          animation-delay: 750ms;
+          transform: rotate(90deg);
+          z-index: 40;
+        }
+        img:nth-child(n + 3) {
+          right: 12%;
+          bottom: 0;
+          margin-bottom: 20rem;
+          animation-delay: 1000ms;
+          transform: rotate(0);
+          z-index: 30;
+        }
+        img:nth-child(n + 4) {
+          right: -3%;
+          bottom: 0;
+          margin-bottom: 35rem;
+          animation-delay: 1250ms;
+          transform: rotate(90deg);
+          z-index: 20;
+        }
+        img:nth-child(n + 5) {
+          right: 4%;
+          bottom: 0;
+          margin-bottom: 50rem;
+          animation-delay: 1500ms;
+          transform: rotate(0);
+          z-index: 10;
+        }
+      }
+    }
+  }
+</style>

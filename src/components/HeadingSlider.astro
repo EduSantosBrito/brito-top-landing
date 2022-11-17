@@ -1,0 +1,109 @@
+---
+const words = ["top", "exceptional", "transparent", "modern"];
+---
+
+<div>
+  {
+    words.map((word, index) => (
+      <h1 data-position={index} data-active={false}>
+        {word}
+      </h1>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  @import "../variables";
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+
+  div {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 1.5rem;
+    &::before {
+      display: block;
+      border-radius: 50%;
+      content: "";
+      width: 1.4rem;
+      height: 1.4rem;
+      background-color: $purple-1;
+    }
+    h1 {
+      font-family: "Mont";
+      font-size: 8rem;
+      line-height: 5rem;
+      opacity: 0;
+      display: none;
+      color: $white-1;
+
+      &[data-active="true"] {
+        display: initial;
+        animation: fadeIn 500ms ease-in-out forwards;
+      }
+      &[data-leaving="true"] {
+        animation: fadeOut 500ms ease-in-out forwards;
+      }
+    }
+  }
+</style>
+<script>
+  import isHTMLElement from "../utils/isHTMLElement";
+
+  const allHeadings = document.querySelectorAll("[data-position]");
+
+  const setLeavingAnimation = (actualHeading: HTMLElement) => {
+    actualHeading.setAttribute("data-leaving", "true");
+    setTimeout(() => actualHeading.removeAttribute("data-leaving"), 500);
+  };
+
+  const showNextWord = () => {
+    const actualHeading = document.querySelector("[data-active=true]");
+    if (actualHeading && isHTMLElement(actualHeading)) {
+      const actualPosition = Number(actualHeading.dataset.position ?? 0);
+      if (actualPosition < allHeadings.length - 1) {
+        setLeavingAnimation(actualHeading);
+        setTimeout(() => {
+          actualHeading.removeAttribute("data-active");
+          const nextPosition = actualPosition + 1;
+          const nextHeading = allHeadings[nextPosition];
+          nextHeading.setAttribute("data-active", "true");
+        }, 500);
+        return;
+      } else {
+        setLeavingAnimation(actualHeading);
+        setTimeout(() => {
+          actualHeading.removeAttribute("data-active");
+          const nextHeading = allHeadings[0];
+          nextHeading.setAttribute("data-active", "true");
+        }, 500);
+        return;
+      }
+    }
+    const nextHeading = allHeadings[0];
+    nextHeading.setAttribute("data-active", "true");
+    return;
+  };
+  showNextWord();
+  setInterval(showNextWord, 2000);
+</script>

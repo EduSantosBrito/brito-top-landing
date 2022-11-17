@@ -1,0 +1,135 @@
+---
+const menuItems = [
+  { href: "#who-we-are", text: "Who we are" },
+  { href: "#what-we-do", text: "What we do" },
+  { href: "#get-in-touch", text: "Get in touch" },
+];
+---
+
+<ul role="menubar">
+  {
+    menuItems.map((menuItem, index) => {
+      const isLastItem = index === menuItems.length - 1;
+      if (isLastItem) {
+        return (
+          <>
+            <span aria-hidden="true" />
+            <li role="none">
+              <a
+                data-variant="call-to-action"
+                role="menuitem"
+                href={menuItem.href}
+              >
+                {menuItem.text}
+              </a>
+            </li>
+          </>
+        );
+      }
+      return (
+        <li role="none">
+          <a role="menuitem" href={menuItem.href}>
+            {menuItem.text}
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
+<style lang="scss">
+  @import "../variables";
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3.2rem;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    font-family: "Sarabun";
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: $white-1;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+    border-radius: 0.1rem;
+
+    &:hover {
+      color: $purple-1;
+    }
+
+    &[aria-current="page"] {
+      color: $purple-1;
+    }
+
+    &:focus-visible {
+      outline: 0.1rem solid $purple-1;
+      outline-offset: 0.4rem;
+    }
+
+    &[data-variant="call-to-action"] {
+      text-transform: uppercase;
+      color: $purple-1;
+      &:hover {
+        color: $purple-2;
+      }
+    }
+  }
+  span {
+    height: 2.5rem;
+    width: 0.1rem;
+    background-color: $black-2;
+  }
+</style>
+<script>
+  import isHTMLElement from "../utils/isHTMLElement";
+  import isEventFromKeyboard from "../utils/isEventFromKeyboard";
+
+  const selectFocusedItem = () => {
+    if (document.activeElement && isHTMLElement(document.activeElement)) {
+      const menuItems = document.querySelectorAll("[role=menuitem]");
+      menuItems?.forEach((menuItem) => {
+        if (isHTMLElement(menuItem)) {
+          menuItem.removeAttribute("aria-current");
+        }
+      });
+      document.activeElement.setAttribute("aria-current", "page");
+    }
+  };
+
+  const onKeydown = (event: Event) => {
+    let shouldPreventDefault = false;
+    if (isEventFromKeyboard(event)) {
+      if (event.altKey || event.shiftKey) {
+        return;
+      }
+      switch (event.key) {
+        case " ":
+        case "Enter":
+          if (document.activeElement && isHTMLElement(document.activeElement)) {
+            document.activeElement.click();
+          }
+          shouldPreventDefault = true;
+          break;
+        default:
+          break;
+      }
+    }
+    if (shouldPreventDefault) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    return;
+  };
+
+  const menubar = document.querySelector("[role=menubar]");
+  if (menubar) {
+    menubar.addEventListener("keydown", onKeydown);
+    menubar.addEventListener("click", selectFocusedItem);
+  }
+</script>
