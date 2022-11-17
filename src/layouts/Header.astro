@@ -1,6 +1,6 @@
 ---
-import Menubar from "./Menubar.astro";
-import HeadingSlider from "./HeadingSlider.astro";
+import Menubar from "../components/Menubar.astro";
+import HeadingSlider from "../components/HeadingSlider.astro";
 import Logo from "../images/brito-logo.webp";
 import Ball from "../icons/ball.svg";
 ---
@@ -87,14 +87,21 @@ import Ball from "../icons/ball.svg";
           position: absolute;
           top: 50%;
           transform: translate(0, -50%);
-          left: clamp(9rem, 10vw, 10%);
+          left: clamp(18rem, 10vw, 20%);
           cursor: pointer;
+          @media screen and (min-width: $breakpoint-desktop) {
+            img {
+              width: 10.7rem;
+              height: 2rem;
+            }
+          }
         }
       }
     }
 
     #hero-header {
       position: relative;
+      z-index: 100;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -109,6 +116,9 @@ import Ball from "../icons/ball.svg";
         font-weight: 400;
         color: $white-1;
         max-width: 60rem;
+        @media screen and (min-width: $breakpoint-desktop) {
+          max-width: 50rem;
+        }
       }
       a {
         position: absolute;
@@ -153,6 +163,8 @@ import Ball from "../icons/ball.svg";
     #hero-visual-elements {
       display: none;
       @media screen and (min-width: $breakpoint-small-desktop) {
+        overflow-x: hidden;
+
         display: initial;
         transform: rotate(60deg);
         img {
@@ -161,14 +173,14 @@ import Ball from "../icons/ball.svg";
           animation: slideTopWithOpacity 500ms ease-in-out forwards;
         }
         img:nth-child(n + 1) {
-          right: 20%;
+          right: 23%;
           bottom: 0;
           margin-bottom: -10rem;
           animation-delay: 500ms;
           z-index: 50;
         }
         img:nth-child(n + 2) {
-          right: 5%;
+          right: 8%;
           bottom: 0;
           margin-bottom: 5rem;
           animation-delay: 750ms;
@@ -176,7 +188,7 @@ import Ball from "../icons/ball.svg";
           z-index: 40;
         }
         img:nth-child(n + 3) {
-          right: 12%;
+          right: 15%;
           bottom: 0;
           margin-bottom: 20rem;
           animation-delay: 1000ms;
@@ -184,7 +196,7 @@ import Ball from "../icons/ball.svg";
           z-index: 30;
         }
         img:nth-child(n + 4) {
-          right: -3%;
+          right: 0%;
           bottom: 0;
           margin-bottom: 35rem;
           animation-delay: 1250ms;
@@ -192,12 +204,18 @@ import Ball from "../icons/ball.svg";
           z-index: 20;
         }
         img:nth-child(n + 5) {
-          right: 4%;
+          right: 7%;
           bottom: 0;
           margin-bottom: 50rem;
           animation-delay: 1500ms;
           transform: rotate(0);
           z-index: 10;
+        }
+      }
+      @media screen and (min-width: $breakpoint-desktop) {
+        img {
+          width: 40rem;
+          height: 40rem;
         }
       }
     }

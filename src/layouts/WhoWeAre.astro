@@ -1,0 +1,187 @@
+---
+import Rhay from "../images/rhay.webp";
+import RhayHover from "../images/rhay-hover.webp";
+import Brito from "../images/brito.webp";
+import BritoHover from "../images/brito-hover.webp";
+import HoverImage from "../components/HoverImage.astro";
+
+const words = ["creatives", "modern", "transparent", "technological"];
+---
+
+<section id="who-we-are">
+  <aside id="team-pictures">
+    <HoverImage
+      defaultImage={{ metadata: Rhay, alt: "Rhayane's picture" }}
+      hoverImage={{
+        metadata: RhayHover,
+        alt: "Rhayane's picture with some funny drawings",
+      }}
+      link={{
+        url: "https://rhay.brito.top",
+        label: "Go to Rhayane's personal website",
+      }}
+      title="Rhayane"
+      subtitle="UI/UX Designer"
+    />
+    <HoverImage
+      defaultImage={{ metadata: Brito, alt: "Eduardo's picture" }}
+      hoverImage={{
+        metadata: BritoHover,
+        alt: "Eduardo's picture with some funny drawings",
+      }}
+      link={{
+        url: "https://edu.brito.top",
+        label: "Go to Eduardo's personal website",
+      }}
+      title="Eduardo"
+      subtitle="Frontend Developer"
+    />
+  </aside>
+  <header id="team-description">
+    <h3>Who we are</h3>
+    <p>
+      We are passionate about creating digital products with the highest
+      quality, performance, and beauty. We enjoy creating products for real
+      users, like you and me.
+    </p>
+  </header>
+  <footer id="team-features">
+    <ul>
+      {words.map((word) => <li>{word}</li>)}
+    </ul>
+    <p>We are <span>top</span></p>
+  </footer>
+</section>
+
+<style lang="scss" is:global>
+  @import "../variables";
+
+  #who-we-are {
+    padding-bottom: 20rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    row-gap: 3.2rem;
+    margin-left: clamp(18rem, 10vw, 20%);
+
+    #team-pictures {
+      grid-column: 1/2;
+      grid-row: 1/5;
+      position: relative;
+      height: 60rem;
+      width: 50rem;
+      a:first-of-type {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 50;
+      }
+      a:last-of-type {
+        position: absolute;
+        top: 30%;
+        right: 0;
+        z-index: 25;
+      }
+    }
+
+    #team-description {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 3.2rem;
+      grid-column: 2/3;
+      grid-row: 1/3;
+
+      h3 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 0.8rem;
+        font-family: "Sarabun";
+        font-weight: 600;
+        font-size: 3.2rem;
+        line-height: 2.9rem;
+        color: $white-1;
+        margin-bottom: 0.8rem;
+        &::before {
+          display: block;
+          border-radius: 50%;
+          content: "";
+          width: 0.7rem;
+          height: 0.7rem;
+          background-color: $purple-1;
+        }
+      }
+      p {
+        max-width: 40rem;
+        font-family: "Sarabun";
+        font-weight: 400;
+        font-size: 1.8rem;
+        color: $white-1;
+      }
+    }
+  }
+  #team-features {
+    grid-column: 2/3;
+    grid-row: 3/5;
+
+    ul {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1.6rem;
+      margin-bottom: 0.8rem;
+      li {
+        list-style: none;
+        font-family: "Sarabun";
+        font-weight: 400;
+        line-height: 1.8rem;
+        font-size: 1.8rem;
+        color: $white-1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 0.2rem;
+        &::before {
+          display: block;
+          border-radius: 50%;
+          content: "";
+          width: 0.3rem;
+          height: 0.3rem;
+          background-color: $purple-1;
+        }
+      }
+    }
+    > p {
+      font-family: "Sarabun";
+      font-weight: 400;
+      line-height: 1.8rem;
+      font-size: 1.8rem;
+      color: $white-1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.4rem;
+
+      > span {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        margin-top: 0.4rem;
+        gap: 0.2rem;
+        line-height: 1.2rem;
+        font-family: "Mont";
+        font-weight: 700;
+        &::before {
+          display: block;
+          border-radius: 50%;
+          content: "";
+          width: 0.3rem;
+          height: 0.3rem;
+          background-color: $purple-1;
+        }
+      }
+    }
+  }
+</style>

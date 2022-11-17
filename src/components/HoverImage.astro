@@ -1,0 +1,122 @@
+---
+type ImageProps = {
+  metadata: ImageMetadata;
+  alt: string;
+};
+
+type LinkProps = {
+  url: string;
+  label: string;
+};
+
+export interface Props {
+  defaultImage: ImageProps;
+  hoverImage: ImageProps;
+  link: LinkProps;
+  title: string;
+  subtitle: string;
+}
+
+const { defaultImage, title, subtitle, hoverImage, link } = Astro.props;
+---
+
+<a href={link.url} aria-label={link.label} target="_blank">
+  <img
+    src={defaultImage.metadata.src}
+    alt={defaultImage.alt}
+    width={defaultImage.metadata.width}
+    height={defaultImage.metadata.height}
+    loading="lazy"
+    decoding="async"
+  />
+  <img
+    src={hoverImage.metadata.src}
+    alt={hoverImage.alt}
+    width={hoverImage.metadata.width}
+    height={hoverImage.metadata.height}
+    loading="lazy"
+    decoding="async"
+  />
+  <p data-variant="name">{title}</p>
+  <p data-variant="occupation">{subtitle}</p>
+</a>
+
+<style
+  lang="scss"
+  define:vars={{
+    width: `${defaultImage.metadata.width / 10}rem`,
+    height: `${defaultImage.metadata.height / 10}rem`,
+  }}
+>
+  @import "../variables";
+
+  @keyframes moveToTopStack {
+    0% {
+      z-index: inherit;
+    }
+
+    100% {
+      z-index: 100;
+    }
+  }
+
+  a {
+    position: relative;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      animation: moveToTopStack 200 ease-in forwards;
+    }
+
+    img:first-of-type {
+      margin-bottom: 2.4rem;
+    }
+
+    img:last-of-type {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 200ms ease-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    > p[data-variant="name"] {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+      font-family: "Mont";
+      font-weight: 700;
+      font-size: 1.6rem;
+      line-height: 0.9rem;
+      gap: 0.2rem;
+      color: $purple-1;
+      margin-bottom: 0.8rem;
+      &::before {
+        display: block;
+        border-radius: 50%;
+        content: "";
+        width: 0.5rem;
+        height: 0.5rem;
+        background-color: $purple-1;
+      }
+    }
+
+    > p[data-variant="occupation"] {
+      font-family: "Sarabun";
+      font-weight: 400;
+      font-size: 1.4rem;
+      color: $white-1;
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+      > img {
+        width: var(--width);
+        height: var(--height);
+      }
+    }
+  }
+</style>
