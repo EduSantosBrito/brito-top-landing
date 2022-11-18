@@ -28,6 +28,38 @@ const { title } = Astro.props;
       crossorigin
     />
     <title>{title}</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content={title} />
+    <meta
+      name="description"
+      content="We build creative, scalable, and performant projects. We're experts in web development, mobile apps, and UI/UX design."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://brito.top/" />
+    <meta
+      property="og:title"
+      content="Brito.top | UI/UX and Web projects development"
+    />
+    <meta
+      property="og:description"
+      content="We build creative, scalable, and performant projects. We're experts in web development, mobile apps, and UI/UX design."
+    />
+    <meta property="og:image" content="/images/meta-image.webp" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://brito.top/" />
+    <meta
+      property="twitter:title"
+      content="Brito.top | UI/UX and Web projects development"
+    />
+    <meta
+      property="twitter:description"
+      content="We build creative, scalable, and performant projects. We're experts in web development, mobile apps, and UI/UX design."
+    />
+    <meta property="twitter:image" content="/images/meta-image.webp" />
   </head>
   <body>
     <slot />
