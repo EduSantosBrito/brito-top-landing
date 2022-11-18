@@ -10,13 +10,13 @@ import partytown from "@astrojs/partytown";
 export default defineConfig({
   output: "server",
   adapter: vercel(),
-  site: "https://brito.top/",
+  site: "https://www.brito.top/",
   integrations: [
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
     sitemap({
-      customPages: ["https://brito.top/"],
+      customPages: ["https://www.brito.top/"],
     }),
     partytown({
       config: {

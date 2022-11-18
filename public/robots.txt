@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brito.top/sitemap-index.xml
+Sitemap: https://www.brito.top/sitemap-index.xml
