@@ -20,7 +20,7 @@ export interface Props {
 const { defaultImage, title, subtitle, hoverImage, link } = Astro.props;
 ---
 
-<a href={link.url} aria-label={link.label} target="_blank">
+<a href={link.url} data-to-observe aria-label={link.label} target="_blank">
   <img
     src={defaultImage.metadata.src}
     alt={defaultImage.alt}
@@ -50,23 +50,26 @@ const { defaultImage, title, subtitle, hoverImage, link } = Astro.props;
 >
   @import "../variables";
 
-  @keyframes moveToTopStack {
-    0% {
-      z-index: inherit;
+  @keyframes slideLeftWithOpacity {
+    from {
+      opacity: 0;
+      transform: translateX(-50%);
     }
 
-    100% {
-      z-index: 100;
+    to {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
   a {
     position: relative;
     text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      animation: moveToTopStack 200 ease-in forwards;
+    opacity: 0;
+    transform: translateX(-50%);
+    z-index: inherit;
+    &[data-in-viewport="true"] {
+      animation: slideLeftWithOpacity 500ms ease-in forwards;
     }
 
     img:first-of-type {

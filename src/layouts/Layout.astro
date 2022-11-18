@@ -229,3 +229,13 @@ const webpage = {
     width: 1px;
   }
 </style>
+<script>
+  import viewportObserver from "../utils/viewportObserver";
+
+  const elementsToObserve = document.querySelectorAll("[data-to-observe]");
+  if (elementsToObserve.length) {
+    elementsToObserve.forEach((element) => {
+      viewportObserver.observe(element);
+    });
+  }
+</script>

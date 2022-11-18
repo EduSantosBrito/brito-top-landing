@@ -1,0 +1,164 @@
+---
+import SectionTitle from "../components/SectionTitle.astro";
+import picture from "../images/what-we-do-picture.webp";
+
+const features = [
+  {
+    title: "UI and UX design",
+    description:
+      "Interfaces thought for the best usability for the users, customized according to your visual identity.",
+  },
+  {
+    title: "Web and Mobile development",
+    description:
+      "We build accessible projects with high performance and high quality, as you expect a great project to be.",
+  },
+  {
+    title: "Software development",
+    description:
+      "We also create complex software, which can help all your processes, from the most operational, with the quality as always.",
+  },
+];
+---
+
+<section id="what-we-do">
+  <header>
+    <SectionTitle text="What we do" />
+    <dl>
+      {
+        features.map((feature) => (
+          <>
+            <dt>{feature.title}</dt>
+            <dd>{feature.description}</dd>
+          </>
+        ))
+      }
+    </dl>
+  </header>
+  <aside>
+    <img
+      src={picture.src}
+      alt="A drawing of a browser"
+      width={picture.width}
+      height={picture.height}
+      loading="lazy"
+      decoding="async"
+    />
+  </aside>
+</section>
+
+<style
+  lang="scss"
+  define:vars={{
+    featuresLength: `${(features.length - 1) * 18 + 2.5}rem`,
+    width: `${picture.width / 10}rem`,
+    height: `${picture.height / 10}rem`,
+  }}
+>
+  @import "../variables";
+
+  @keyframes floating {
+    0% {
+      margin-bottom: 0;
+    }
+    50% {
+      margin-bottom: 3rem;
+    }
+    100% {
+      margin-bottom: 0;
+    }
+  }
+
+  aside {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      z-index: 50;
+      width: var(--width);
+      height: var(--height);
+      animation: floating 2500ms ease-in-out infinite;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 25;
+      width: 60rem;
+      height: 60rem;
+      border-radius: 50%;
+      background-color: $purple-2;
+    }
+  }
+
+  section {
+    margin-left: clamp(18rem, 10vw, 20%);
+    padding-bottom: 20rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    dl {
+      position: relative;
+      margin-top: 10rem;
+      max-width: 40rem;
+      &::after {
+        content: "";
+        position: absolute;
+        height: var(--featuresLength);
+        width: 0.1rem;
+        background-color: rgba(255, 255, 255, 0.3);
+        top: 0.5rem;
+        left: 1.4rem;
+      }
+      dt {
+        position: relative;
+        font-family: "Sarabun";
+        font-size: 2.6rem;
+        color: $white-1;
+        font-weight: 600;
+        margin-bottom: 1.6rem;
+        padding-left: 5.6rem;
+        height: 3.4rem;
+
+        &::before {
+          content: "";
+          top: 0.5rem;
+          left: 0;
+          position: absolute;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          background-color: $purple-3;
+          z-index: 25;
+        }
+
+        &::after {
+          top: 1rem;
+          left: 0.5rem;
+          position: absolute;
+          content: "";
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          background-color: $purple-2;
+          z-index: 25;
+        }
+      }
+
+      dd {
+        padding-left: 5.6rem;
+        font-family: "Sarabun";
+        font-size: 1.8rem;
+        color: $white-1;
+        font-weight: 400;
+        margin-bottom: 6rem;
+        height: 7rem;
+      }
+    }
+  }
+</style>

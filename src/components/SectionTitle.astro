@@ -1,0 +1,34 @@
+---
+export interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<h3>{text}</h3>
+
+<style lang="scss">
+  @import "../variables";
+
+  h3 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.8rem;
+    font-family: "Sarabun";
+    font-weight: 600;
+    font-size: 3.2rem;
+    line-height: 2.9rem;
+    color: $white-1;
+    margin-bottom: 0.8rem;
+    &::before {
+      display: block;
+      border-radius: 50%;
+      content: "";
+      width: 0.7rem;
+      height: 0.7rem;
+      background-color: $purple-1;
+    }
+  }
+</style>
