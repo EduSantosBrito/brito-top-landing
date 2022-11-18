@@ -5,7 +5,7 @@ const words = ["modern", "transparent", "exceptional", "top"];
 <div>
   {
     words.map((word, index) => (
-      <h1 data-position={index} data-active={false}>
+      <h1 data-position={index} data-active={false} aria-hidden="true">
         {word}
       </h1>
     ))
@@ -74,7 +74,10 @@ const words = ["modern", "transparent", "exceptional", "top"];
 
   const setLeavingAnimation = (actualHeading: HTMLElement) => {
     actualHeading.setAttribute("data-leaving", "true");
-    setTimeout(() => actualHeading.removeAttribute("data-leaving"), 500);
+    setTimeout(() => {
+      actualHeading.removeAttribute("data-leaving");
+      actualHeading.setAttribute("aria-hidden", "true");
+    }, 500);
   };
 
   const showNextWord = () => {
@@ -88,6 +91,7 @@ const words = ["modern", "transparent", "exceptional", "top"];
           const nextPosition = actualPosition + 1;
           const nextHeading = allHeadings[nextPosition];
           nextHeading.setAttribute("data-active", "true");
+          nextHeading.setAttribute("aria-hidden", "false");
         }, 500);
         return;
       } else {
@@ -96,12 +100,14 @@ const words = ["modern", "transparent", "exceptional", "top"];
           actualHeading.removeAttribute("data-active");
           const nextHeading = allHeadings[0];
           nextHeading.setAttribute("data-active", "true");
+          nextHeading.setAttribute("aria-hidden", "false");
         }, 500);
         return;
       }
     }
     const nextHeading = allHeadings[0];
     nextHeading.setAttribute("data-active", "true");
+    nextHeading.setAttribute("aria-hidden", "false");
     return;
   };
   showNextWord();

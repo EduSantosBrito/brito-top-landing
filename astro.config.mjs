@@ -4,13 +4,24 @@ import image from "@astrojs/image";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
+import partytown from "@astrojs/partytown";
+
+// https://astro.build/config
 export default defineConfig({
   output: "server",
   adapter: vercel(),
+  site: "https://brito.top/",
   integrations: [
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
-    sitemap(),
+    sitemap({
+      customPages: ["https://brito.top/"],
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
   ],
 });
