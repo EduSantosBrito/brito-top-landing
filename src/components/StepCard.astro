@@ -1,0 +1,89 @@
+---
+type Position = {
+  number: string;
+  description: string;
+};
+
+type Content = {
+  title: string;
+  description: string;
+};
+
+export interface Props {
+  position: Position;
+  content: Content;
+}
+
+const { position, content } = Astro.props;
+---
+
+<section>
+  <aside>
+    <h4>{position.number}</h4>
+    <p>{position.description}</p>
+  </aside>
+  <header>
+    <h5>{content.title}</h5>
+    <p>{content.description}</p>
+  </header>
+</section>
+
+<style lang="scss">
+  @import "../variables";
+
+  section {
+    border: 1px solid $gray-1;
+    width: 65rem;
+    padding: 3.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+
+    aside {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      h4 {
+        font-family: "Sarabun";
+        color: $white-1;
+        font-weight: 200;
+        font-size: 10rem;
+        line-height: 10rem;
+        width: 14rem;
+        text-align: center;
+      }
+
+      p {
+        font-family: "Sarabun";
+        color: $purple-1;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-weight: 400;
+        font-size: 1.2rem;
+      }
+    }
+    header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      h5 {
+        font-family: "Sarabun";
+        color: $white-1;
+        font-weight: 600;
+        font-size: 3rem;
+      }
+
+      p {
+        font-family: "Sarabun";
+        color: $white-1;
+        font-weight: 400;
+        font-size: 1.6rem;
+      }
+    }
+  }
+</style>

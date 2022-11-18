@@ -19,11 +19,15 @@ const features = [
       "We also create complex software, which can help all your processes, from the most operational, with the quality as always.",
   },
 ];
+
+const content = {
+  title: "What we do",
+};
 ---
 
 <section id="what-we-do">
   <header>
-    <SectionTitle text="What we do" />
+    <SectionTitle text={content.title} />
     <dl>
       {
         features.map((feature) => (
@@ -111,7 +115,7 @@ const features = [
         position: absolute;
         height: var(--featuresLength);
         width: 0.1rem;
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: $gray-1;
         top: 0.5rem;
         left: 1.4rem;
       }
