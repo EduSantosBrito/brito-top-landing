@@ -25,21 +25,28 @@ const content = {
 };
 ---
 
-<section id="what-we-do">
+<section
+  id="what-we-do"
+  aria-label="Section to describe what kind of services we can make"
+>
   <header>
     <SectionTitle text={content.title} />
-    <dl>
+    <dl
+      aria-label="List of the services followed by description of the service"
+    >
       {
         features.map((feature) => (
           <>
-            <dt>{feature.title}</dt>
-            <dd>{feature.description}</dd>
+            <dt aria-label={`Service name`}>{feature.title}</dt>
+            <dd aria-label={`Description of ${feature.title}`}>
+              {feature.description}
+            </dd>
           </>
         ))
       }
     </dl>
   </header>
-  <aside>
+  <aside aria-hidden="true">
     <img
       src={picture.src}
       alt="A drawing of a browser"

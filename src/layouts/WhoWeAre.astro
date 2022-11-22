@@ -14,8 +14,8 @@ const content = {
 };
 ---
 
-<section id="who-we-are">
-  <aside id="team-pictures">
+<section id="who-we-are" aria-label="Section to describe who we are as a company with pictures of the team">
+  <aside id="team-pictures" aria-label="Pictures of the team with link to personal website">
     <HoverImage
       defaultImage={{ metadata: Rhay, alt: "Rhayane's picture" }}
       hoverImage={{
@@ -43,15 +43,15 @@ const content = {
       subtitle="Frontend Developer"
     />
   </aside>
-  <header id="team-description">
+  <header id="team-description" aria-label="Section with team description">
     <SectionTitle text={content.title} />
-    <p>{content.description}</p>
+    <p aria-label="Team description">{content.description}</p>
   </header>
-  <footer id="team-features">
-    <ul>
+  <footer id="team-features" aria-label="Section with more words that represent the team and the brand phrase">
+    <ul aria-label="Words that represent the team">
       {words.map((word) => <li>{word}</li>)}
     </ul>
-    <p>We are <span>top</span></p>
+    <p aria-label="Brand phrase">We are <span>top</span></p>
   </footer>
 </section>
 

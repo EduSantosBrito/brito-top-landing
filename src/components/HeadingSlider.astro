@@ -2,7 +2,7 @@
 const words = ["modern", "transparent", "exceptional", "top"];
 ---
 
-<h1>
+<h1 aria-label="Dynamic words that represent the team">
   {
     words.map((word, index) => (
       <span data-position={index} data-active={false} aria-hidden="true">
