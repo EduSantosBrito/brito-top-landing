@@ -1,8 +1,11 @@
-const pushToDataLayer = <T>(event: string, data: T) => {
-  const { dataLayer } = window as Window &
-    typeof globalThis & { dataLayer: any };
-
-  dataLayer?.push({ event, data });
+const pushToDataLayer = <T>(eventName: string, data: T) => {
+  const event = new CustomEvent("trigger-gtag", {
+    detail: {
+      eventName,
+      data,
+    },
+  });
+  document.dispatchEvent(event);
 };
 
 export default pushToDataLayer;
