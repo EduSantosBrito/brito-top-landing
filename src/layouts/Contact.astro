@@ -1,1 +1,288 @@
-<section></section>
+---
+import SectionTitle from "../components/SectionTitle.astro";
+---
+
+<section id="get-in-touch" aria-label="Section to get in touch with us">
+  <header>
+    <SectionTitle text="Send us a message" />
+    <form>
+      <span>
+        <label for="name">Tell me your name</label>
+        <input required id="name" type="text" autocomplete="name" />
+      </span>
+      <span>
+        <label for="email">Email that we can contact you</label>
+        <input required id="email" type="email" autocomplete="email" />
+      </span>
+      <span>
+        <label for="message">Describe your problem</label>
+        <textarea required id="message" autocomplete="off"></textarea>
+      </span>
+      <input type="submit" value="Send" />
+    </form>
+  </header>
+  <aside aria-hidden="true">
+    {Array.from(new Array(10)).map((_) => <span data-to-observe />)}
+  </aside>
+</section>
+
+<style lang="scss">
+  @import "../variables";
+
+  @keyframes slideBotWithOpacity {
+    from {
+      opacity: 0;
+      transform: translate(-1rem, -1rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+  :root {
+    --ball-purple-1: #652cbe;
+    --ball-purple-2: #5c29ab;
+    --ball-purple-3: #522698;
+    --ball-purple-4: #492384;
+    --ball-purple-5: #402071;
+    --ball-purple-6: #361d5e;
+    --ball-purple-7: #2d1a4b;
+    --ball-purple-8: #241737;
+    --ball-purple-9: #1a1424;
+    --ball-purple-10: #111111;
+    --top-gutter: 2rem;
+    --right-gutter: 0.8rem;
+  }
+  section {
+    position: relative;
+    background-image: url("../images/background.webp");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    header {
+      width: 100%;
+      max-width: 50rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 6rem;
+
+      form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 3.2rem;
+        span {
+          position: relative;
+          width: 100%;
+
+          label[data-input-has-value="true"] {
+            color: $purple-1;
+            top: 0;
+            font-size: 1.1rem;
+          }
+          &:focus-within {
+            label {
+              color: $purple-1;
+              top: 0;
+              font-size: 1.1rem;
+            }
+          }
+        }
+
+        label {
+          position: absolute;
+          font-family: "Sarabun";
+          font-size: 1.4rem;
+          font-weight: 400;
+          top: 1.4rem;
+          left: 0;
+          color: $gray-2;
+          transition: font-size 200ms ease-in-out, top 200ms ease-in-out;
+        }
+
+        input:not([type="submit"]),
+        textarea {
+          padding-top: 1.3rem;
+          width: 100%;
+          background-color: transparent;
+          height: 4.4rem;
+          border: none;
+          transition: border-color 200ms ease-in-out;
+          border-bottom: 1px solid $gray-2;
+          vertical-align: middle;
+          font-family: "Sarabun";
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: $gray-2;
+
+          &:focus-visible {
+            outline: none;
+            border-color: $purple-1;
+          }
+        }
+        textarea {
+          padding-top: 0;
+          margin-top: 1.3rem;
+        }
+
+        input[type="submit"] {
+          cursor: pointer;
+          font-family: "Sarabun";
+          font-size: 1.8rem;
+          font-weight: 700;
+          transition: color 0.15s ease-in-out;
+          border: none;
+          background-color: transparent;
+          color: $purple-1;
+          &:hover {
+            color: $purple-2;
+          }
+        }
+      }
+    }
+
+    aside {
+      span {
+        position: absolute;
+        width: 25rem;
+        height: 25rem;
+        border-radius: 50%;
+        opacity: 0;
+        &[data-in-viewport="true"] {
+          animation: slideBotWithOpacity 500ms ease-in-out forwards;
+        }
+      }
+
+      span:nth-child(n + 1) {
+        background-color: var(--ball-purple-1);
+        z-index: 80;
+        bottom: calc(6rem + var(--top-gutter));
+        right: calc(-12.5rem + var(--right-gutter));
+      }
+      span:nth-child(n + 2) {
+        background-color: var(--ball-purple-2);
+        z-index: 70;
+        bottom: calc(6rem + var(--top-gutter) * 2);
+        right: calc(-12.5rem + var(--right-gutter) * 2);
+        animation-delay: 100ms;
+      }
+      span:nth-child(n + 3) {
+        background-color: var(--ball-purple-3);
+        z-index: 60;
+        bottom: 7.6rem;
+        bottom: calc(6rem + var(--top-gutter) * 3);
+        right: calc(-12.5rem + var(--right-gutter) * 3);
+        animation-delay: 200ms;
+      }
+      span:nth-child(n + 4) {
+        background-color: var(--ball-purple-4);
+        z-index: 50;
+        bottom: 8.4rem;
+        bottom: calc(6rem + var(--top-gutter) * 4);
+        right: calc(-12.5rem + var(--right-gutter) * 4);
+        animation-delay: 300ms;
+      }
+      span:nth-child(n + 5) {
+        background-color: var(--ball-purple-5);
+        z-index: 40;
+        bottom: calc(6rem + var(--top-gutter) * 5);
+        right: calc(-12.5rem + var(--right-gutter) * 5);
+        animation-delay: 400ms;
+      }
+      span:nth-child(n + 6) {
+        background-color: var(--ball-purple-6);
+        z-index: 30;
+        bottom: calc(6rem + var(--top-gutter) * 6);
+        right: calc(-12.5rem + var(--right-gutter) * 6);
+        animation-delay: 500ms;
+      }
+      span:nth-child(n + 7) {
+        background-color: var(--ball-purple-7);
+        z-index: 20;
+        bottom: calc(6rem + var(--top-gutter) * 7);
+        right: calc(-12.5rem + var(--right-gutter) * 7);
+        animation-delay: 600ms;
+      }
+      span:nth-child(n + 8) {
+        background-color: var(--ball-purple-8);
+        z-index: 10;
+        bottom: calc(6rem + var(--top-gutter) * 8);
+        right: calc(-12.5rem + var(--right-gutter) * 8);
+        animation-delay: 700ms;
+      }
+      span:nth-child(n + 9) {
+        background-color: var(--ball-purple-9);
+        z-index: 5;
+        bottom: calc(6rem + var(--top-gutter) * 9);
+        right: calc(-12.5rem + var(--right-gutter) * 9);
+        animation-delay: 800ms;
+      }
+      span:nth-child(n + 10) {
+        background-color: var(--ball-purple-10);
+        z-index: 0;
+        bottom: calc(6rem + var(--top-gutter) * 10);
+        right: calc(-12.5rem + var(--right-gutter) * 10);
+        animation-delay: 900ms;
+      }
+    }
+  }
+</style>
+<script>
+  import isHTMLFormElement from "../utils/isHTMLFormElement";
+  import isHTMLInputElement from "../utils/isHTMLInputElement";
+  import pushToDataLayer from "../utils/pushToDataLayer";
+
+  const onChange = (event: Event) => {
+    if (event.target instanceof Element && isHTMLInputElement(event.target)) {
+      const label = event.target.parentElement?.querySelector("label");
+      if (label) {
+        if (event.target.value) {
+          label.setAttribute("data-input-has-value", "true");
+          return;
+        }
+        label.removeAttribute("data-input-has-value");
+        return;
+      }
+    }
+  };
+
+  const getValueFromForm = (
+    elements: HTMLFormControlsCollection,
+    name: string
+  ): string | null => {
+    const element = elements.namedItem(name) as Element | null;
+    if (element && isHTMLInputElement(element)) {
+      return element.value;
+    }
+    return null;
+  };
+
+  const onSubmit = (event: Event) => {
+    event.preventDefault();
+    if (event.target instanceof Element && isHTMLFormElement(event.target)) {
+      const { elements } = event.target;
+      const values = {
+        name: getValueFromForm(elements, "name"),
+        email: getValueFromForm(elements, "email"),
+        message: getValueFromForm(elements, "message"),
+      };
+      pushToDataLayer("new_message", values);
+    }
+  };
+  const form = document.querySelector("form");
+  if (form) {
+    document.addEventListener("change", onChange);
+    document.addEventListener("submit", onSubmit);
+  }
+</script>
