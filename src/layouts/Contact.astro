@@ -249,7 +249,7 @@ import SectionTitle from "../components/SectionTitle.astro";
 <script>
   import isHTMLFormElement from "../utils/isHTMLFormElement";
   import isHTMLInputElement from "../utils/isHTMLInputElement";
-  import pushToDataLayer from "../utils/pushToDataLayer";
+  import sendEmail from "../utils/sendEmail";
 
   const onChange = (event: Event) => {
     if (event.target instanceof Element && isHTMLInputElement(event.target)) {
@@ -276,7 +276,7 @@ import SectionTitle from "../components/SectionTitle.astro";
     return null;
   };
 
-  const onSubmit = (event: Event) => {
+  const onSubmit = async (event: Event) => {
     event.preventDefault();
     if (event.target instanceof Element && isHTMLFormElement(event.target)) {
       const { elements } = event.target;
@@ -285,20 +285,23 @@ import SectionTitle from "../components/SectionTitle.astro";
         email: getValueFromForm(elements, "email"),
         message: getValueFromForm(elements, "message"),
       };
-      pushToDataLayer("new_message", values);
-      const successMessage = document.getElementById("success-message");
-      if (successMessage) {
-        successMessage.innerText = "Thanks for sending us a message!";
-        setTimeout(() => {
-          successMessage.innerText = "";
-        }, 3000);
+      const emailSent = await sendEmail(values);
+      if (emailSent) {
+        const successMessage = document.getElementById("success-message");
+        if (successMessage) {
+          successMessage.innerText = "Thanks for sending us a message!";
+          setTimeout(() => {
+            successMessage.innerText = "";
+          }, 3000);
+        }
+        event.target.reset();
+        const labels = document.querySelectorAll(
+          "label[data-input-has-value=true]"
+        );
+        labels.forEach((label) =>
+          label.removeAttribute("data-input-has-value")
+        );
       }
-      event.target.reset();
-      const labels = document.querySelectorAll(
-        "label[data-input-has-value=true]"
-      );
-
-      labels.forEach((label) => label.removeAttribute("data-input-has-value"));
     }
   };
   const form = document.querySelector("form");
